@@ -136,17 +136,20 @@ public class TupleEntrySchemeIterator<Config, Input> extends TupleEntryIterator
 
   private TupleEntry getNext() throws IOException
     {
-    Tuples.asModifiable( sourceCall.getIncomingEntry().getTuple() );
-    hasWaiting = scheme.source( flowProcess, sourceCall );
-
-    if( !hasWaiting && inputIterator.hasNext() )
+    while (true)
       {
-      sourceCall.setInput( wrapInput( inputIterator.next() ) );
+      Tuples.asModifiable( sourceCall.getIncomingEntry().getTuple() );
+      hasWaiting = scheme.source( flowProcess, sourceCall );
 
-      return getNext();
+      if( !hasWaiting && inputIterator.hasNext() )
+        {
+        sourceCall.setInput( wrapInput( inputIterator.next() ) );
+        }
+      else
+        {
+        return getTupleEntry();
+        }
       }
-
-    return getTupleEntry();
     }
 
   @Override
