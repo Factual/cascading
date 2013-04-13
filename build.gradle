@@ -55,7 +55,7 @@ subprojects { subproject ->
     apply plugin: 'maven'
 
     buildDir = "${rootDir}/build"
-    group = 'cascading'
+    group = 'factual'
     version = releaseVersion
     ext.platformVersion = releasePlatformVersion
 
